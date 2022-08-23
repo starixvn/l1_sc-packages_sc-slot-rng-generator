@@ -18,7 +18,8 @@ export class ResultGenerator {
         Array(1 + extraCount)
             .fill(1)
             .forEach(() => {
-                const choice = this.generateWithFilter(result);
+                const excludedChoices = this.getExcludedChoices(result);
+                const choice = this.generateWithFilter(excludedChoices);
                 result.push(choice);
             });
 
@@ -29,10 +30,10 @@ export class ResultGenerator {
         const mapper = {};
         let selectionArr = [];
 
-        this.betChoiceTable.choices.forEach((value, index) => {
-            if (!excludedChoices.includes(value.name)) {
-                mapper[index + 1] = value;
-                selectionArr = selectionArr.concat(Array(value.count).fill(index + 1));
+        this.betChoiceTable.choices.forEach((choice, index) => {
+            if (!excludedChoices.includes(choice.name)) {
+                mapper[index + 1] = choice;
+                selectionArr = selectionArr.concat(Array(choice.count).fill(index + 1));
             }
         });
 
@@ -54,5 +55,23 @@ export class ResultGenerator {
         }
 
         return extraCount;
+    }
+
+    getExcludedChoices(choices): string[] {
+        const allRelatedChoices = this.betChoiceTable.choices
+            .filter((choice) => choice.relatedChoices && choice.relatedChoices.length > 0)
+            .map((choice) => choice.relatedChoices.concat([choice.name]));
+
+        const excludedChoices = [];
+        choices.forEach((choice) => {
+            const relatedChoices = allRelatedChoices.find((rc) => rc.includes(choice));
+            if (relatedChoices) {
+                excludedChoices.push(...relatedChoices);
+            } else {
+                excludedChoices.push(choice);
+            }
+        });
+
+        return excludedChoices;
     }
 }
