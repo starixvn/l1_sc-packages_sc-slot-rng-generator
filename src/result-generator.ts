@@ -1,15 +1,16 @@
 import { BetChoiceTable } from "./bet-choice-table";
-import * as Chance from "chance";
 import { LuckyConfig } from "./lucky-config";
 import { RandomHelper } from "./random-helper";
 
 export class ResultGenerator {
     private readonly luckyConfig: LuckyConfig;
     private readonly betChoiceTable: BetChoiceTable;
+    private readonly randomMode: number;
 
-    constructor(betChoiceTable, luckyConfig) {
+    constructor(betChoiceTable, luckyConfig, randomMode) {
         this.luckyConfig = luckyConfig;
         this.betChoiceTable = betChoiceTable;
+        this.randomMode = randomMode;
     }
 
     generate() {
@@ -37,7 +38,7 @@ export class ResultGenerator {
             }
         });
 
-        const randomValue = RandomHelper.getRandomFromArr(selectionArr);
+        const randomValue = RandomHelper.getRandomFromArray(selectionArr, this.randomMode);
         const selectedBetChoice = mapper[randomValue];
 
         return selectedBetChoice.name;
@@ -46,12 +47,11 @@ export class ResultGenerator {
     getExtraCount() {
         const arr1 = Array(this.luckyConfig.ratio * 100).fill(1);
         const arr2 = Array(100 - this.luckyConfig.ratio * 100).fill(0);
-        const value = RandomHelper.getRandomFromArr(arr1.concat(arr2));
+        const value = RandomHelper.getRandomFromArray(arr1.concat(arr2), this.randomMode);
 
         let extraCount = 0;
         if (value === 1) {
-            const chance = new Chance();
-            extraCount = chance.integer({ min: this.luckyConfig.extraMin, max: this.luckyConfig.extraMax });
+            extraCount = RandomHelper.random(this.randomMode)(this.luckyConfig.extraMin, this.luckyConfig.extraMax);
         }
 
         return extraCount;

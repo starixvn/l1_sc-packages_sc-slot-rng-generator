@@ -1,34 +1,30 @@
 import { ResultGenerator } from "../src/result-generator";
-import { BetChoiceTable } from "../src/bet-choice-table";
 
-xdescribe("ResultGenerator", () => {
+describe("ResultGenerator", () => {
     it("should work", () => {
         // Arrange
         const betChoiceTable = {
             choices: [
                 {
-                    name: "bar100",
-                    odds: 100,
-                    count: 6,
+                    name: "big",
+                    odds: 2,
+                    count: 100,
                 },
                 {
-                    name: "starx3",
-                    odds: 3,
-                    count: 200,
-                },
-                {
-                    name: "bellx3",
-                    odds: 3,
-                    count: 200,
+                    name: "small",
+                    odds: 2,
+                    count: 100,
                 },
             ],
         };
-        const generator = new ResultGenerator(betChoiceTable, { ratio: 0.5, extraMin: 1, extraMax: 2 });
+        const generator = new ResultGenerator(betChoiceTable, { ratio: 0, extraMin: 1, extraMax: 2 }, 1);
 
         // Act
         const result = generator.generate();
 
         // Assert
         console.log(result);
+        expect(result.length).toBe(1);
+        expect(["big", "small"].includes(result[0]));
     });
 });

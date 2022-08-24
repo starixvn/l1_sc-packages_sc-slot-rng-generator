@@ -6,10 +6,12 @@ import { LuckyConfig } from "./lucky-config";
 export class ReturnToPlayerCalculator {
     private readonly generator: ResultGenerator;
     private readonly betChoiceTable: BetChoiceTable;
+    private readonly randomMode: number;
 
-    constructor(betChoiceTable: BetChoiceTable, luckyConfig: LuckyConfig) {
-        this.generator = new ResultGenerator(betChoiceTable, luckyConfig);
+    constructor(betChoiceTable: BetChoiceTable, luckyConfig: LuckyConfig, randomMode: number) {
+        this.generator = new ResultGenerator(betChoiceTable, luckyConfig, randomMode);
         this.betChoiceTable = betChoiceTable;
+        this.randomMode = randomMode;
     }
 
     calculate(roundCount: number) {
@@ -22,8 +24,8 @@ export class ReturnToPlayerCalculator {
         let betStats = {};
         let resultStats = {};
         for (let i = 0; i < roundCount; i++) {
-            const chip = RandomHelper.getRandomFromArr(chips);
-            const choice = RandomHelper.getRandomFromArr(allChoices);
+            const chip = RandomHelper.getRandomFromArray(chips, this.randomMode);
+            const choice = RandomHelper.getRandomFromArray(allChoices, this.randomMode);
             const relatedChoices = this.getRelatedChoices(choice);
             const betChoices = relatedChoices && relatedChoices.length > 0 ? relatedChoices.concat([choice]) : [choice];
             const result = this.generator.generate();
