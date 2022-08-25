@@ -1,4 +1,4 @@
-import { BetChoiceTable } from "./bet-choice-table";
+import { BetChoice, BetChoiceTable } from "./bet-choice-table";
 import { LuckyConfig } from "./lucky-config";
 import { RandomHelper } from "./random-helper";
 
@@ -14,9 +14,9 @@ export class ResultGenerator {
     }
 
     generate() {
-        const extraCount = this.getExtraCount();
+        const freeSpinCount = this.getFreeSpinCount();
         const result = [];
-        Array(1 + extraCount)
+        Array(1 + freeSpinCount)
             .fill(1)
             .forEach(() => {
                 const excludedChoices = this.getExcludedChoices(result);
@@ -28,33 +28,33 @@ export class ResultGenerator {
     }
 
     generateWithFilter(excludedChoices: string[]) {
-        const mapper = {};
-        let selectionArr = [];
+        const resultGroup = Array<BetChoice>();
+        let randomItems = Array<number>();
 
         this.betChoiceTable.choices.forEach((choice, index) => {
             if (!excludedChoices.includes(choice.name)) {
-                mapper[index + 1] = choice;
-                selectionArr = selectionArr.concat(Array(choice.count).fill(index + 1));
+                resultGroup[index + 1] = choice;
+                randomItems = randomItems.concat(Array<number>(choice.count).fill(index + 1));
             }
         });
 
-        const randomValue = RandomHelper.getRandomFromArray(selectionArr, this.randomMode);
-        const selectedBetChoice = mapper[randomValue];
+        const resultGroupIndex = RandomHelper.getRandomFromArray(randomItems, this.randomMode);
+        const result = resultGroup[resultGroupIndex];
 
-        return selectedBetChoice.name;
+        return result.name;
     }
 
-    getExtraCount() {
-        const arr1 = Array(this.luckyConfig.ratio * 100).fill(1);
-        const arr2 = Array(100 - this.luckyConfig.ratio * 100).fill(0);
-        const value = RandomHelper.getRandomFromArray(arr1.concat(arr2), this.randomMode);
+    getFreeSpinCount() {
+        const luckySymbolRandomItems = Array(this.luckyConfig.ratio * 100).fill(1);
+        const nonLuckySymbolRandomItems = Array(100 - this.luckyConfig.ratio * 100).fill(0);
+        const isLuckySymbolOccur = RandomHelper.getRandomFromArray(luckySymbolRandomItems.concat(nonLuckySymbolRandomItems), this.randomMode) === 1;
 
-        let extraCount = 0;
-        if (value === 1) {
-            extraCount = RandomHelper.random(this.randomMode)(this.luckyConfig.extraMin, this.luckyConfig.extraMax);
+        let freeSpinCount = 0;
+        if (isLuckySymbolOccur) {
+            freeSpinCount = RandomHelper.random(this.randomMode)(this.luckyConfig.extraMin, this.luckyConfig.extraMax);
         }
 
-        return extraCount;
+        return freeSpinCount;
     }
 
     getExcludedChoices(choices): string[] {
