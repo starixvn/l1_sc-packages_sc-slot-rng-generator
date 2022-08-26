@@ -14,7 +14,7 @@ export class ReturnToPlayerCalculator {
         this.randomMode = randomMode;
     }
 
-    calculate(roundCount: number) {
+    calculate(roundCount: number, selectedChoice: string) {
         const chips = [10, 100, 1000];
         const allChoices = this.betChoiceTable.choices.filter((value) => value.canBet).map((value) => value.name);
 
@@ -25,7 +25,7 @@ export class ReturnToPlayerCalculator {
         let resultStats = {};
         for (let i = 0; i < roundCount; i++) {
             const chip = RandomHelper.getRandomFromArray(chips, this.randomMode);
-            const choice = RandomHelper.getRandomFromArray(allChoices, this.randomMode);
+            const choice = selectedChoice ? selectedChoice : RandomHelper.getRandomFromArray(allChoices, this.randomMode);
             const relatedChoices = this.getRelatedChoices(choice);
             const betChoices = relatedChoices && relatedChoices.length > 0 ? relatedChoices.concat([choice]) : [choice];
             const result = this.generator.generate();
@@ -69,7 +69,7 @@ export class ReturnToPlayerCalculator {
             payout: (totalWin / totalBet).toFixed(2),
             luckyCount: luckyCount,
             betStats,
-            resultStats,
+            //resultStats,
         };
     }
 
@@ -95,11 +95,11 @@ export class ReturnToPlayerCalculator {
         return betChoices.find((betChoice) => resultBetChoices.includes(betChoice));
     }
 
-    getOddOfChoice(choice) {
+    getOddOfChoice(choice: string) {
         return this.betChoiceTable.choices.find((c) => c.name === choice).odds;
     }
 
-    getRelatedChoices(choice) {
+    getRelatedChoices(choice: string) {
         return this.betChoiceTable.choices.find((c) => c.name === choice).relatedChoices;
     }
 }

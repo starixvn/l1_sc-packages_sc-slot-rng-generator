@@ -9,11 +9,15 @@ describe("ResultGenerator", () => {
                     name: "big",
                     odds: 2,
                     count: 100,
+                    canBet: true,
+                    relatedChoices: [],
                 },
                 {
                     name: "small",
                     odds: 2,
                     count: 100,
+                    canBet: true,
+                    relatedChoices: [],
                 },
             ],
         };

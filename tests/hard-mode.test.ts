@@ -8,10 +8,14 @@ describe("ReturnToPlayerCalculator", () => {
             const calculate = new ReturnToPlayerCalculator(betChoiceTable, { ratio: 0.18, extraMin: 1, extraMax: 2 }, 2);
 
             // Act
-            const result = calculate.calculate(10000);
+            const result1 = calculate.calculate(100000, "orange");
+            const result2 = calculate.calculate(100000, "orange");
+            const result3 = calculate.calculate(100000, "orange");
 
             // Assert
-            console.log("Hard: ", result);
+            console.log("Hard 1: ", result1);
+            console.log("Hard 2: ", result2);
+            console.log("Hard 3: ", result3);
         });
     });
 });

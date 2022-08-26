@@ -1,7 +1,7 @@
 export const betChoiceTable = {
     choices: [
         {
-            name: "bar100",
+            name: "bar",
             odds: 100,
             count: 4,
             canBet: true,
@@ -10,7 +10,7 @@ export const betChoiceTable = {
         {
             name: "bar50",
             odds: 50,
-            count: 8,
+            count: 7,
             canBet: false,
             relatedChoices: [],
         },
