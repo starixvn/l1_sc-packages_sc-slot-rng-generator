@@ -1,13 +1,13 @@
-import { BetChoice, BetChoiceTable } from "./bet-choice-table";
-import { LuckyConfig } from "./lucky-config";
-import { RandomHelper } from "./random-helper";
+import { BetChoice, BetChoiceTable } from "../models/bet-choice-table";
+import { LuckyConfig } from "../models/lucky-config";
+import { RandomHelper } from "../helpers/random-helper";
 
 export class ResultGenerator {
     private readonly luckyConfig: LuckyConfig;
     private readonly betChoiceTable: BetChoiceTable;
     private readonly randomMode: number;
 
-    constructor(betChoiceTable, luckyConfig, randomMode) {
+    constructor(betChoiceTable: BetChoiceTable, luckyConfig: LuckyConfig, randomMode: number) {
         this.luckyConfig = luckyConfig;
         this.betChoiceTable = betChoiceTable;
         this.randomMode = randomMode;

@@ -1,7 +1,7 @@
-import { ResultGenerator } from "./result-generator";
-import { RandomHelper } from "./random-helper";
-import { BetChoiceTable } from "./bet-choice-table";
-import { LuckyConfig } from "./lucky-config";
+import { ResultGenerator } from "../generators/result-generator";
+import { RandomHelper } from "../helpers/random-helper";
+import { BetChoiceTable } from "../models/bet-choice-table";
+import { LuckyConfig } from "../models/lucky-config";
 
 export class ReturnToPlayerCalculator {
     private readonly generator: ResultGenerator;

@@ -1,4 +1,4 @@
-import { ReturnToPlayerCalculator } from "../src/return-to-player-calculator";
+import { ReturnToPlayerCalculator } from "../../src/return-to-players/return-to-player-calculator";
 import { betChoiceTable } from "./bet-choice-table";
 
 describe("ReturnToPlayerCalculator1", () => {

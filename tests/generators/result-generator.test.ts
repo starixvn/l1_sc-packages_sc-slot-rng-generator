@@ -1,4 +1,4 @@
-import { ResultGenerator } from "../src/result-generator";
+import { ResultGenerator } from "../../src/generators/result-generator";
 
 describe("ResultGenerator", () => {
     it("should work", () => {

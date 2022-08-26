@@ -1,4 +1,4 @@
-import { RandomHelper } from "../src/random-helper";
+import { RandomHelper } from "../../src/helpers/random-helper";
 
 describe("random", () => {
     const randomModes = [[1], [2], [3], [4]];
