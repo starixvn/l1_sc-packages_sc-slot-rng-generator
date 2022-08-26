@@ -13,7 +13,7 @@ export class ResultGenerator {
         this.randomMode = randomMode;
     }
 
-    generate() {
+    generate(): string[] {
         const freeSpinCount = this.getFreeSpinCount();
         const result = [];
         Array(1 + freeSpinCount)

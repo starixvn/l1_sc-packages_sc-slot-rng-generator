@@ -1,5 +1,10 @@
 import { RandomHelper } from "../helpers/random-helper";
 
+const SmallValues = [1, 2, 3, 4, 5, 6, 7];
+const BigValues = [8, 9, 10, 11, 12, 13, 14];
+const SmallText = "small";
+const BigText = "big";
+
 export class BigSmallResultGenerator {
     private readonly randomMode: number;
 
@@ -8,14 +13,12 @@ export class BigSmallResultGenerator {
     }
 
     generate() {
-        const smallValues = [1, 2, 3, 4, 5, 6, 7];
-        const bigValues = [8, 9, 10, 11, 12, 13, 14];
-        const randomItems = smallValues.concat(bigValues);
+        const randomItems = SmallValues.concat(BigValues);
         const value = RandomHelper.getRandomFromArray(randomItems, this.randomMode);
 
         return {
             value,
-            choice: smallValues.includes(value) ? "small" : "big",
+            choice: SmallValues.includes(value) ? SmallText : BigText,
         };
     }
 }

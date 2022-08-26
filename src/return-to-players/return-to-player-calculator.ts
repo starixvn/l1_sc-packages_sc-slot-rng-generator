@@ -26,10 +26,8 @@ export class ReturnToPlayerCalculator {
         for (let i = 0; i < roundCount; i++) {
             const chip = RandomHelper.getRandomFromArray(chips, this.randomMode);
             const choice = selectedChoice ? selectedChoice : RandomHelper.getRandomFromArray(allChoices, this.randomMode);
-            const relatedChoices = this.getRelatedChoices(choice);
-            const betChoices = relatedChoices && relatedChoices.length > 0 ? relatedChoices.concat([choice]) : [choice];
             const result = this.generator.generate();
-            const winningChoice = this.getWinningChoice(betChoices, result);
+            const winningChoice = this.getWinningChoice(choice, result);
 
             if (betStats[choice]) {
                 betStats[choice]["count"] += 1;
@@ -69,7 +67,7 @@ export class ReturnToPlayerCalculator {
             payout: (totalWin / totalBet).toFixed(2),
             luckyCount: luckyCount,
             betStats,
-            //resultStats,
+            resultStats,
         };
     }
 
@@ -91,7 +89,10 @@ export class ReturnToPlayerCalculator {
         });
     }
 
-    getWinningChoice(betChoices: string[], resultBetChoices: string[]) {
+    getWinningChoice(choice: string, resultBetChoices: string[]) {
+        const relatedChoices = this.getRelatedChoices(choice);
+        const betChoices = relatedChoices && relatedChoices.length > 0 ? relatedChoices.concat([choice]) : [choice];
+
         return betChoices.find((betChoice) => resultBetChoices.includes(betChoice));
     }
 

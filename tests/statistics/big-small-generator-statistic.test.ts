@@ -8,7 +8,7 @@ describe("ReturnToPlayerCalculator", () => {
 
             // Act
             let bigCount = 0;
-            const total = 1000000;
+            const total = 100000;
             for (let i = 0; i < total; i++) {
                 const result = generator.generate();
                 if (result.choice === "big") {
