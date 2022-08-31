@@ -5,7 +5,3 @@ export interface BetChoice {
     relatedChoices: string[];
     canBet: boolean;
 }
-
-export interface BetChoiceTable {
-    choices: BetChoice[];
-}

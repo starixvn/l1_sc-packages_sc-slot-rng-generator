@@ -1,15 +1,15 @@
-import { BetChoice, BetChoiceTable } from "../models/bet-choice-table";
+import { BetChoice } from "../models/bet-choice-table";
 import { LuckyConfig } from "../models/lucky-config";
 import { RandomHelper } from "../helpers/random-helper";
 
 export class ResultGenerator {
     private readonly luckyConfig: LuckyConfig;
-    private readonly betChoiceTable: BetChoiceTable;
+    private readonly betChoices: BetChoice[];
     private readonly randomMode: number;
 
-    constructor(betChoiceTable: BetChoiceTable, luckyConfig: LuckyConfig, randomMode: number) {
+    constructor(betChoices: BetChoice[], luckyConfig: LuckyConfig, randomMode: number) {
         this.luckyConfig = luckyConfig;
-        this.betChoiceTable = betChoiceTable;
+        this.betChoices = betChoices;
         this.randomMode = randomMode;
     }
 
@@ -31,7 +31,7 @@ export class ResultGenerator {
         const resultGroup = Array<BetChoice>();
         let randomItems = Array<number>();
 
-        this.betChoiceTable.choices.forEach((choice, index) => {
+        this.betChoices.forEach((choice, index) => {
             if (!excludedChoices.includes(choice.name)) {
                 resultGroup[index + 1] = choice;
                 randomItems = randomItems.concat(Array<number>(choice.count).fill(index + 1));
@@ -58,7 +58,7 @@ export class ResultGenerator {
     }
 
     getExcludedChoices(choices): string[] {
-        const allRelatedChoices = this.betChoiceTable.choices
+        const allRelatedChoices = this.betChoices
             .filter((choice) => choice.relatedChoices && choice.relatedChoices.length > 0)
             .map((choice) => choice.relatedChoices.concat([choice.name]));
 

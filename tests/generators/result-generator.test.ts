@@ -1,10 +1,10 @@
 import { ResultGenerator } from "../../src/generators/result-generator";
-import { betChoiceTable } from "../statistics/bet-choice-table";
+import { betChoices } from "../statistics/bet-choice-table";
 
 describe("ResultGenerator", () => {
     it("should not generate overlapped choice or related choice for free spins", () => {
         // Arrange
-        const generator = new ResultGenerator(betChoiceTable, { ratio: 0.24, extraMin: 1, extraMax: 2 }, 1);
+        const generator = new ResultGenerator(betChoices, { ratio: 0.24, extraMin: 1, extraMax: 2 }, 1);
 
         // Act
         const freeSpinResult: string[][] = [];
@@ -16,7 +16,7 @@ describe("ResultGenerator", () => {
         }
 
         const allRelatedChoices: string[][] = [];
-        betChoiceTable.choices.forEach((choice) => {
+        betChoices.forEach((choice) => {
             if (choice.relatedChoices && choice.relatedChoices.length > 0) {
                 allRelatedChoices.push([choice.name, ...choice.relatedChoices]);
             }

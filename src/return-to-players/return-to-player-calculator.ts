@@ -1,22 +1,22 @@
 import { ResultGenerator } from "../generators/result-generator";
 import { RandomHelper } from "../helpers/random-helper";
-import { BetChoiceTable } from "../models/bet-choice-table";
+import { BetChoice } from "../models/bet-choice-table";
 import { LuckyConfig } from "../models/lucky-config";
 
 export class ReturnToPlayerCalculator {
     private readonly generator: ResultGenerator;
-    private readonly betChoiceTable: BetChoiceTable;
+    private readonly betChoices: BetChoice[];
     private readonly randomMode: number;
 
-    constructor(betChoiceTable: BetChoiceTable, luckyConfig: LuckyConfig, randomMode: number) {
-        this.generator = new ResultGenerator(betChoiceTable, luckyConfig, randomMode);
-        this.betChoiceTable = betChoiceTable;
+    constructor(betChoices: BetChoice[], luckyConfig: LuckyConfig, randomMode: number) {
+        this.generator = new ResultGenerator(betChoices, luckyConfig, randomMode);
+        this.betChoices = betChoices;
         this.randomMode = randomMode;
     }
 
     calculate(roundCount: number, selectedChoice: string) {
         const chips = [10, 100, 1000];
-        const allChoices = this.betChoiceTable.choices.filter((value) => value.canBet).map((value) => value.name);
+        const allChoices = this.betChoices.filter((value) => value.canBet).map((value) => value.name);
 
         let totalBet = 0;
         let totalWin = 0;
@@ -79,7 +79,7 @@ export class ReturnToPlayerCalculator {
 
     calculateResultStatistic(resultStat, roundCount: number) {
         Object.keys(resultStat).forEach((k) => {
-            const odds = this.betChoiceTable.choices.find((choice) => choice.name == k).odds;
+            const odds = this.betChoices.find((choice) => choice.name == k).odds;
             resultStat[k] = {
                 count: resultStat[k],
                 percentage: ((resultStat[k] / roundCount) * 100).toFixed(2),
@@ -97,10 +97,10 @@ export class ReturnToPlayerCalculator {
     }
 
     getOddOfChoice(choice: string) {
-        return this.betChoiceTable.choices.find((c) => c.name === choice).odds;
+        return this.betChoices.find((c) => c.name === choice).odds;
     }
 
     getRelatedChoices(choice: string) {
-        return this.betChoiceTable.choices.find((c) => c.name === choice).relatedChoices;
+        return this.betChoices.find((c) => c.name === choice).relatedChoices;
     }
 }
