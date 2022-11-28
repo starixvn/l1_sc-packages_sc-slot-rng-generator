@@ -21,13 +21,13 @@ export class ReturnToPlayerCalculator {
         let totalBet = 0;
         let totalWin = 0;
         let luckyCount = 0;
-        let betStats = {};
-        let resultStats = {};
+        const betStats = {};
+        const resultStats = {};
         for (let i = 0; i < roundCount; i++) {
             const chip = RandomHelper.getRandomFromArray(chips, this.randomMode);
             const choice = selectedChoice ? selectedChoice : RandomHelper.getRandomFromArray(allChoices, this.randomMode);
             const result = this.generator.generate();
-            const winningChoice = this.getWinningChoice(choice, result);
+            const winningChoice = this.getWinningChoice(choice, result.choices);
 
             if (betStats[choice]) {
                 betStats[choice]["count"] += 1;
@@ -36,7 +36,7 @@ export class ReturnToPlayerCalculator {
                 betStats[choice] = { count: 1, win: 0, bet: chip };
             }
 
-            result.forEach((c) => {
+            result.choices.forEach((c) => {
                 if (resultStats[c]) {
                     resultStats[c] += 1;
                 } else {
@@ -44,7 +44,7 @@ export class ReturnToPlayerCalculator {
                 }
             });
 
-            if (result.length > 1) {
+            if (result.isLucky) {
                 luckyCount += 1;
             }
 
@@ -79,7 +79,7 @@ export class ReturnToPlayerCalculator {
 
     calculateResultStatistic(resultStat, roundCount: number) {
         Object.keys(resultStat).forEach((k) => {
-            const odds = this.betChoices.find((choice) => choice.name == k).odds;
+            const odds = this.betChoices.find((choice) => choice.name === k).odds;
             resultStat[k] = {
                 count: resultStat[k],
                 percentage: ((resultStat[k] / roundCount) * 100).toFixed(2),

@@ -1,6 +1,6 @@
 {
     "name": "sc-slot-rng-generator",
-    "version": "1.0.1-beta.3",
+    "version": "1.0.1-beta.7",
     "description": "Slot RNG Generator",
     "main": "./lib/index.js",
     "typings": "./lib/index.d.ts",
@@ -13,9 +13,9 @@
         "test": "jest",
         "test-coverage": "jest --collect-coverage",
         "reg": "npm set registry http://npm.lumigame.com",
-        "pub": "npm publish --registry http://npm.lumigame.com",
+        "pub": "tsc && npm publish --registry http://npm.lumigame.com",
         "betaver": "npm version prerelease --preid beta",
-        "pubbeta": "npm publish --registry http://npm.lumigame.com --tag beta",
+        "pubbeta": "tsc && npm publish --registry http://npm.lumigame.com --tag beta",
         "semantic-release": "semantic-release"
     },
     "jestSonar": {

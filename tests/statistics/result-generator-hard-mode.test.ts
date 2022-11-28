@@ -5,7 +5,7 @@ describe("ReturnToPlayerCalculator", () => {
     describe("Hard mode", () => {
         it("should work", () => {
             // Arrange
-            const calculate = new ReturnToPlayerCalculator(betChoices, { ratio: 0.18, extraMin: 1, extraMax: 2 }, 2);
+            const calculate = new ReturnToPlayerCalculator(betChoices, { ratio: 0.18, min: 2, max: 3 }, 2);
 
             // Act
             const result1 = calculate.calculate(1000, "cherry");

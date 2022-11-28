@@ -4,14 +4,14 @@ import { betChoices } from "../statistics/bet-choice-table";
 describe("ResultGenerator", () => {
     it("should not generate overlapped choice or related choice for free spins", () => {
         // Arrange
-        const generator = new ResultGenerator(betChoices, { ratio: 0.24, extraMin: 1, extraMax: 2 }, 1);
+        const generator = new ResultGenerator(betChoices, { ratio: 0.24, min: 2, max: 3 }, 1);
 
         // Act
         const freeSpinResult: string[][] = [];
         for (let i = 0; i < 10; i++) {
             const result = generator.generate();
-            if (result.length > 1) {
-                freeSpinResult.push(result);
+            if (result.isLucky) {
+                freeSpinResult.push(result.choices);
             }
         }
 

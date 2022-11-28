@@ -1,6 +1,7 @@
 import { BetChoice } from "../models/bet-choice-table";
 import { LuckyConfig } from "../models/lucky-config";
 import { RandomHelper } from "../helpers/random-helper";
+import { Result } from "../models/result";
 
 export class ResultGenerator {
     private readonly luckyConfig: LuckyConfig;
@@ -13,18 +14,21 @@ export class ResultGenerator {
         this.randomMode = randomMode;
     }
 
-    generate(): string[] {
+    generate(): Result {
         const freeSpinCount = this.getFreeSpinCount();
-        const result = [];
+        const choices = [];
         Array(1 + freeSpinCount)
             .fill(1)
             .forEach(() => {
-                const excludedChoices = this.getExcludedChoices(result);
+                const excludedChoices = this.getExcludedChoices(choices);
                 const choice = this.generateWithFilter(excludedChoices);
-                result.push(choice);
+                choices.push(choice);
             });
 
-        return result;
+        return {
+            isLucky: choices.length > 1,
+            choices: choices,
+        };
     }
 
     generateWithFilter(excludedChoices: string[]) {
@@ -51,7 +55,9 @@ export class ResultGenerator {
 
         let freeSpinCount = 0;
         if (isLuckySymbolOccur) {
-            freeSpinCount = RandomHelper.random(this.randomMode)(this.luckyConfig.extraMin, this.luckyConfig.extraMax);
+            const extraMin = this.luckyConfig.min > 1 ? this.luckyConfig.min - 1 : 0;
+            const extraMax = this.luckyConfig.max > 1 ? this.luckyConfig.max - 1 : 0;
+            freeSpinCount = RandomHelper.random(this.randomMode)(extraMin, extraMax);
         }
 
         return freeSpinCount;

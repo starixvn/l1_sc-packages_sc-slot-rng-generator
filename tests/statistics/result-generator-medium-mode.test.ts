@@ -5,7 +5,7 @@ describe("ReturnToPlayerCalculator1", () => {
     describe("Medium mode1", () => {
         it("should work1", () => {
             // Arrange
-            const calculate = new ReturnToPlayerCalculator(betChoices, { ratio: 0.21, extraMin: 1, extraMax: 2 }, 3);
+            const calculate = new ReturnToPlayerCalculator(betChoices, { ratio: 0.21, min: 2, max: 3 }, 3);
 
             // Act
             const result1 = calculate.calculate(1000, "cherry");
