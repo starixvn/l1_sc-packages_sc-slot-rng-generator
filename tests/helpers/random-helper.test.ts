@@ -1,7 +1,7 @@
 import { RandomHelper } from "../../src/helpers/random-helper";
 
 describe("random", () => {
-    const randomModes = [[1], [2], [3], [4]];
+    const randomModes = [[1], [2], [3], [4], [5]];
 
     test.each(randomModes)("random mode %p", (randomMode) => {
         // Arrange
