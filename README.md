@@ -1,3 +1,3 @@
 # sc-slot-rng-generator
 
-Slot RNG Generator
+Slot-RNG-Generator
