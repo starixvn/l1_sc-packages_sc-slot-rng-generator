@@ -26,10 +26,6 @@
     "files": [
         "lib/"
     ],
-    "repository": {
-        "type": "git",
-        "url": "https://git3.nexdev.net/sc-packages/sc-slot-rng-generator.git"
-    },
     "keywords": [
         "board-generator",
         "sc-slot-rng-generator"
