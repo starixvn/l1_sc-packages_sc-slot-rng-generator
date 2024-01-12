@@ -1,3 +1,10 @@
+## [1.0.3](https://git3.nexdev.net/l1/sc-packages/sc-slot-rng-generator/compare/v1.0.2...v1.0.3) (2024-01-12)
+
+
+### Bug Fixes
+
+* public package ([318ca40](https://git3.nexdev.net/l1/sc-packages/sc-slot-rng-generator/commit/318ca404acfe886e7ac56cbefdd71179539b6601))
+
 # 1.0.0 (2024-01-12)
 
 
