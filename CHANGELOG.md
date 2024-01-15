@@ -1,3 +1,12 @@
+## [1.0.4](https://git3.nexdev.net/l1/sc-packages/sc-slot-rng-generator/compare/v1.0.3...v1.0.4) (2024-01-15)
+
+
+### Bug Fixes
+
+* build project before public package ([c28a63f](https://git3.nexdev.net/l1/sc-packages/sc-slot-rng-generator/commit/c28a63fc74ea5874807794515bec4c3025723279))
+* remove setting allowJs ([3fdf3ba](https://git3.nexdev.net/l1/sc-packages/sc-slot-rng-generator/commit/3fdf3ba97d34e9c4541e051d9e4aa1125cb7ed75))
+* update outDir ([89eaa8e](https://git3.nexdev.net/l1/sc-packages/sc-slot-rng-generator/commit/89eaa8e07da13de53a7c113e3e011714145205ab))
+
 ## [1.0.3](https://git3.nexdev.net/l1/sc-packages/sc-slot-rng-generator/compare/v1.0.2...v1.0.3) (2024-01-12)
 
 
